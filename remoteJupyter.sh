@@ -31,23 +31,23 @@
 # On remote, create a python virtualenv in PROJECT_DIR and istall jupyter-lab in it
 # On local:
 # * copy this script to `~/.bash_scripts`
-# * add `alias jupyterhub="~/.bash_scripts/jupyterhub.sh"` into `~/.bash_aliases`
+# * add `alias remoteJupyter="~/.bash_scripts/remoteJupyter.sh"` into `~/.bash_aliases`
 # * configure the variables below
 # * restat the terminal or `source ~/.bash_aliases`
-# * and simply run `jupyterhub`
+# * and simply run `remoteJupyter`
 # * in your browser window, jupyter lab environment appears
 # * to stop it, click `File > Shut Down`
 ##########################################################################################
 # UNINSTALLATION & CLEANUP:
-# On remote, `rm ~/.jupyter/myJupyterHub_config.json` and `screen -XS jupyter_session quit`
-# On local, `rm ~/.bash_scripts/jupyterhub.sh` and remove the alias from `~/.bash_aliases`
+# On remote, `rm ~/.jupyter/remoteJupyter_config.json` and `screen -XS jupyter_session quit`
+# On local, `rm ~/.bash_scripts/remoteJupyter.sh` and remove the alias from `~/.bash_aliases`
 # On local, kill existing tunnel with `lsof -ti :$LOCAL_PORT | xargs -r kill -9`
 ##########################################################################################
 # CONFIGURATION (Make sure to do CLEANUP before reconfiguring)
 PROJECT_DIR="~/Jupyter"
 VENV_PATH=".venv"  # relative to ~/PROJECT_DIR
 SCREEN_NAME="jupyter_session"  # named screen session prevents spawning many virtual terminals
-JUPYTER_CONFIG_FILE="~/.jupyter/myJupyterHub_config.json"  # Setting up password protection
+JUPYTER_CONFIG_FILE="~/.jupyter/remoteJupyter_config.json"  # Setting up password protection
 LOCAL_PORT=8765  # Do not use 8888 to prevent clashes with local jupyter server
 
 # PER-USER CONFIG (alternatively those env variables can be loaded from a seprate file)
@@ -56,7 +56,8 @@ LOCAL_PORT=8765  # Do not use 8888 to prevent clashes with local jupyter server
 # JUPYTER_PASSWORD='put_your_pass_here' # If you change this, the hash below needs to be recomputed
 # JUPYTER_PASSWORD_HASH='argon2:$argon2id$v=compute_hash_of_your_password_using_python'
 
-source userconfig.txt
+# Loading the PER-USER CONFIG environment variables from a file instead
+source "$(dirname "$(realpath "$0")")"/userconfig.sh
 
 ##########################################################################################
 
@@ -73,7 +74,7 @@ echo -e "
 
  ┌──────────────────────────────────────────────────────────────────────────┐
  │                                                                          │
- │      Helping you run your own JupyterLab on ISTA HPC since 01/2025       │
+ │    Helping you run your own JupyterLab on remote server since 01/2025    │
  │                                                                          │
  └──────────────────────────────────────────────────────────────────────────┘
 "
@@ -89,7 +90,7 @@ start_jupyter() {
         mkdir -p ~/.jupyter/
 
         # Create or update the configuration file with the hashed password
-        cat > ~/.jupyter/myJupyterHub_config.json << 'CONFIG'
+        cat > ~/.jupyter/remoteJupyter_config.json << 'CONFIG'
 {
     "ServerApp": {
         "jpserver_extensions": {
@@ -145,7 +146,7 @@ if ! is_tunnel_alive; then
         lsof -ti :$LOCAL_PORT | xargs -r kill -9
     fi
     # Recreate the tunnel (-A forwards ssh agent, -f puts ssh to background, -N do not execute remote command, just portforward )
-    ssh -fN -A -L localhost:$LOCAL_PORT:localhost:$JUPYTER_PORT "$SERVER" || ( echo -e " ❌ SSH tunnel could not be started. Check configuration." && exit 1 )
+    ssh -fN -A -L localhost:$LOCAL_PORT:localhost:$JUPYTER_PORT "$SERVER" || { echo -e " ❌ SSH tunnel could not be started. Check configuration." && exit 1; }
 fi
 echo -e " ✅ SSH tunnel active"
 

@@ -14,10 +14,29 @@ A hacky bash script that creates an SSH tunnel to a remote server then configure
 
 ## Quickstart
 
+**Prerequisites:**
+
+1. Assumes a Debian-based remote server with `bash` and `screen`.
+1. Make sure that `$PROJECT_DIR` folder exists on your remote.
+1. Then make sure a Python virtualenv exists on `$VENV_PATH`.
+1. And finally, make sure `jupyter-lab` is installed within the virtualenv.
+
+**Installing:**
+
 * copy the `remoteJupyter.sh` into `~/.bash_scripts`
 * `chmod +x ~/.bash_scripts/remoteJupyter.sh`
 * make an alias in `~/.bash_aliases`, e.g. `alias remoteJupyter=~/.bash_scripts/remoteJupyter.sh`
-* run using the alias
+* open the `~/.bash_scripts/remoteJupyter.sh` and change the config within 
+
+**Running:**
+
+* Simply run using the chosen alias
+
+**Uninstalling:**
+
+* On remote: `rm ~/.jupyter/remoteJupyter_config.json` and `screen -XS jupyter_session quit`
+* On local (Ubuntu): kill existing tunnel with `lsof -ti :$LOCAL_PORT | xargs -r kill -9`, naturally substitute the port
+* On local (Ubuntu): `rm ~/.bash_scripts/remoteJupyter.sh` and remove the alias from `~/.bash_aliases` 
 
 More info, notes, comments, etc. in the comments in the file itself.
 
