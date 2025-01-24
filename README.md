@@ -20,7 +20,7 @@ Works on Ubuntu & Mac with a Debian-based remote server. Should also work on Win
 
 **Prerequisites:**
 
-1 (Only for Windows): make sure Git is installed so you can utilize Git bash as a terminal.  
+1. (Only for Windows): make sure Git is installed so you can utilize Git bash as a terminal.  
 1. Assumes a Debian-based remote server with `bash` and `screen`.
 1. Make sure that `$PROJECT_DIR` folder exists on your remote.
 1. Then make sure a Python virtualenv exists on `$VENV_PATH`.
