@@ -1,6 +1,10 @@
 # JupyterLab remote
 
-A hacky bash script that creates an SSH tunnel to a remote server then configures and runs jupyterlab server instance there and opens it locally in the web browser. Ideal to make your life easier when you are often working on a remote machine via Jupyter Lab.  
+![Image](https://github.com/user-attachments/assets/228fe435-937c-43bc-bfd0-758d5f5d3fa6)
+
+A bash script that creates an SSH tunnel to a remote server then configures and runs jupyterlab server instance there and opens it locally in the web browser. Ideal to make your life easier when you are often working on a remote machine via Jupyter Lab. 
+
+Works on Ubuntu & Mac with a Debian-based remote server. Should also work on Windows, but it is less tested there.  
 
 ## What does it do?
 
@@ -16,6 +20,7 @@ A hacky bash script that creates an SSH tunnel to a remote server then configure
 
 **Prerequisites:**
 
+1 (Only for Windows): make sure Git is installed so you can utilize Git bash as a terminal.  
 1. Assumes a Debian-based remote server with `bash` and `screen`.
 1. Make sure that `$PROJECT_DIR` folder exists on your remote.
 1. Then make sure a Python virtualenv exists on `$VENV_PATH`.
@@ -23,14 +28,17 @@ A hacky bash script that creates an SSH tunnel to a remote server then configure
 
 **Installing:**
 
+* (Only for Windows): use Git bash as your terminal for all following.
 * copy the `remoteJupyter.sh` into `~/.bash_scripts`
-* `chmod +x ~/.bash_scripts/remoteJupyter.sh`
-* make an alias in `~/.bash_aliases`, e.g. `alias remoteJupyter=~/.bash_scripts/remoteJupyter.sh`
-* open the `~/.bash_scripts/remoteJupyter.sh` and change the config within 
+* (Only on Linux/Mac): `chmod +x ~/.bash_scripts/remoteJupyter.sh`
+* (Only on Linux/Mac): make an alias in `~/.bash_aliases`, e.g. `alias remoteJupyter=~/.bash_scripts/remoteJupyter.sh`
+* (Only on Linux/Mac): source the `~/.bash_aliases` or otherwise make the alias available in your terminal (based on your OS)
+* open the `~/.bash_scripts/remoteJupyter.sh` and change the config within
 
 **Running:**
 
 * Simply run using the chosen alias
+* (Only for Windows): instead of the bash alias, you can use a standard desktop shortcut to that script
 
 **Uninstalling:**
 
