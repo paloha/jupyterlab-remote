@@ -26,6 +26,14 @@
 # I added -A param to the ssh tunnel here in the code
 # I added passing of the $SSH_AUTH_SOCK env variable to JupyterLab
 # But it still does not work. So for now, do your git stuff via ssh directly.
+#
+# NOTE 4: If you want to use multiple kernels in the JupyterLab instance that is
+# crated here, you can just create a new virtual env on your remote and register
+# that kernel with jupyter using: 
+# `pip install ipykernel`
+# `python3 -m ipykernel install --user --name=ProjectName --display-name "Python 3 (ProjectName)"`
+# Then restart the JupyterLab (File > Shut down, and run this script again)
+# and the new kernel should be available for selection when creating a new notebook.
 ##########################################################################################
 # PREREQUISITES & INSTALLATION:
 # On remote, create a python virtualenv in PROJECT_DIR and istall jupyter-lab in it

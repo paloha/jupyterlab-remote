@@ -8,12 +8,12 @@ Works on Ubuntu & Mac with a Debian-based remote server. Should also work on Win
 
 ## What does it do?
 
-* check if ssh tunnel exists, make it if not
-* copy a config file of jupyter (allowing only password access) onto remote
-* start a named screen session if not already running
-* start the jupyter lab instance in the screen session
-* open local browser window with jupytera lab running  
-* inform the user about the progress & password in the terminal
+* checks if ssh tunnel exists, makes it if not
+* copies a config file of jupyter onto remote (allowing only password access)
+* starts a named screen session if it is not already running
+* starts a JupyterLab instance in the named screen session
+* opens a local browser window with the JupyterLab running  
+* informs the user about the progress & password in the terminal window
 
 
 ## Quickstart
